@@ -35,7 +35,8 @@
     }
     $ulvl = $_SESSION['user-lvl'];
     $reisID   = $_SESSION['reisID'];
-    
+    $id = $_GET['reisID'];
+
     // verifieer lvl van persoon (admin lvl req)
     if ( $ulvl == "2") {
     //site here
@@ -100,7 +101,7 @@
             //call naar de config file
             require_once 'config.php';
             //laat alles zien van de databse tafel: "inschrijvingen"
-            $result = $mysqli->query("SELECT * FROM inschrijvingen, reizen") or die($mysqli->error);
+            $result = $mysqli->query("SELECT * FROM inschrijvingen WHERE reisID is $id") or die($mysqli->error);
             // pre_r($result);
             // pre_r($result->fetch_assoc());
             ?>
@@ -163,16 +164,26 @@
         ?>
         <!-- de form -->
         <div class="row justify-content-center">
-            <form action="process.php" method="POST"> 
+            <form action="reizen_process.php" method="POST"> 
+                <?php 
+                 $id   = $_SESSION['id'];
+                 $ID   = $_SESSION['reisID'];
+                 $naam   = $_SESSION['naam'];
+                 $student   = $_SESSION['studentennummer'];
+                 $result2 = $mysqli->query("SELECT `counter` FROM reizen WHERE $row['reisID'];") or die($mysqli->error);
+                 $row2 = $result2->fetch_assoc()
+                 $counter = $row2['counter'] + 1; 
+                 ?>
+
                 <input type="hidden" name="id" value="<?= $id; ?>">
+                <input type="hidden" name="ID" value="<?= $ID; ?>">
+                <input type="hidden" name="counter" value="<?= $counter; ?>">
+                <input type="hidden" name="naam" value="<?= $naam; ?>">
+                <input type="hidden" name="studentennummer" value="<?= $student; ?>">
                 <div class="form-group"> 
-                    <label>Name</label>
-                    <input type="text" name="name" class="form-control" value="<?= $name; ?>" placeholder="Enter your name"> 
+                    <label>opmerkingen</label>
+                    <input type="text" name="opmerkingen" class="form-control" value="" placeholder="Enter your opmerkingen"> 
                 </div> 
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" name="location" class="form-control" value="<?= $location; ?>" placeholder="Enter your location"> 
-                </div>
                 <div class="form-group button">
                     <!-- verander de knop van Save naar Update  -->
                     <?php 
@@ -192,3 +203,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> 
 </body>
 </html>
+
