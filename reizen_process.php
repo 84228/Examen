@@ -9,12 +9,18 @@ $update = false;
 $name = ''; 
 $location = '';
 
-//Voeg een gebruiker / record toe 
+//Voeg een inschrijving toe
 if (isset($_POST['save'])) {
-    $name = $_POST['name'];
-    $location = $_POST['location'];
+    $id = $_POST['id'];
+    $naam = $_POST['naam'];
+    $student = $_POST['studentennummer'];
+    $ID = $_POST['ID'];
+    $opmerkingen = $_POST['opmerkingen']
+    $counter = $_POST['counter'];
 
-    $mysqli->query("INSERT INTO data (name, location, reisID) VALUES('$name', '$location', '$reisID')") or 
+    $mysqli->query("INSERT INTO inschrijvingen (id, naam, studentennummer, reisID, opmerkingen) VALUES('$id', '$naam', '$student', '$ID', '$opmerkingen')") or 
+        die($mysqli->error);
+    $mysqli->query("INSERT INTO reizen (counter) VALUES('$counter')") or 
         die($mysqli->error);
 
     $_SESSION['message'] = "Record has been saved!";
