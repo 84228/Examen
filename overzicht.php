@@ -109,28 +109,29 @@
                             <td><?= $row['begindatum']; ?></td> 
                             <td><?= $row['einddatum']; ?></td> 
                             <td><?= $row['inschrijvingen']; ?></td> 
-                        
-                            <td>
-                                <?php if( $ulvl == "2" ) { ?>
-                                    <a href="overzicht.php?edit=<?= $row['reisID']; ?>" class="btn btn-info">Edit</a>
+                                <td>
+                                <div class="action-buttons">
+                                    <?php if( $ulvl == "2" ) { ?>
+                                        <a href="overzicht.php?edit=<?= $row['reisID']; ?>" class="btn btn-info">Edit</a>
 
-                                    <?php } else { } ?>
+                                        <?php } else { } ?>
 
-                                <?php 
-                                    // verifieer lvl van persoon (admin lvl req)
-                                    if ( $ulvl == "2") {
-                                        //site here
-                                          ?>
-                                          <a href="overzicht_process.php?delete=<?= $row['reisID']; ?>" class="btn btn-danger">Delete</a>
-                                        <?php } 
-                                       //level 1 
-                                        else{
-                                            
-                                        } 
-                                ?>
-                                 <a href="reizen.php?<?= $row['reisID']; ?>" class="btn btn-primary">Inschrijving</a>
-                            </td>
-                        </tr>
+                                    <?php 
+                                        // verifieer lvl van persoon (admin lvl req)
+                                        if ( $ulvl == "2") {
+                                            //site here
+                                            ?>
+                                            <a href="overzicht_process.php?delete=<?= $row['reisID']; ?>" class="btn btn-danger">Delete</a>
+                                            <?php } 
+                                        //level 1 
+                                            else{
+                                                
+                                            } 
+                                    ?>
+                                    <a href="reizen.php?<?= $row['reisID']; ?>" class="btn btn-primary">Inschrijving</a>
+                                </div>
+                                </td>
+                        </tr>              
 
                         <?php endwhile; ?>
 
