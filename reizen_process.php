@@ -20,7 +20,7 @@ if (isset($_POST['save'])) {
 
     $mysqli->query("INSERT INTO inschrijvingen (id, naam, studentennummer, reisID, opmerkingen) VALUES('$id', '$naam', '$student', '$ID', '$opmerkingen')") or 
         die($mysqli->error);
-    $mysqli->query("INSERT INTO reizen (counter) VALUES('$counter')") or 
+    $mysqli->query("UPDATE INTO reizen (counter) VALUES('$counter') WHERE reisID is $ID") or 
         die($mysqli->error);
 
     $_SESSION['message'] = "Record has been saved!";
@@ -29,11 +29,12 @@ if (isset($_POST['save'])) {
     header("location: index.php");
 }
 
-//Delete een gebruiker / record
+//Delete een inschrijving
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $mysqli->query("DELETE FROM data WHERE id=$id") or die($mysqli->error());
-
+    $mysqli->query("DELETE FROM inschrijvingen WHERE id=$id") or die($mysqli->error());
+    $mysqli->query("UPDATE INTO reizen (counter) VALUES('$counter2' WHERE reisID is $ID)") or 
+        die($mysqli->error);
     $_SESSION['message'] = "Record has been deleted!";
     $_SESSION['msg_type'] = "danger";
 
