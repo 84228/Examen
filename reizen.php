@@ -173,6 +173,7 @@
                  $result2 = $mysqli->query("SELECT `counter` FROM reizen WHERE $row['reisID'];") or die($mysqli->error);
                  $row2 = $result2->fetch_assoc()
                  $counter = $row2['counter'] + 1; 
+                 $counter2 = $row2['counter'] - 1; 
                  ?>
 
                 <input type="hidden" name="id" value="<?= $id; ?>">
@@ -203,4 +204,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> 
 </body>
 </html>
+
 
