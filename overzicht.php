@@ -127,8 +127,13 @@
                                             else{
                                                 
                                             } 
-                                    ?>
-                                    <a href="reizen.php?<?= $row['reisID']; ?>" class="btn btn-primary">Inschrijving</a>
+                                    
+                                            if( $row['inschrijvingen'] == $row['counter'] ) { ?>
+
+                                            <?php } else { ?>
+                                                <a href="reizen.php?<?= $row['reisID']; ?>" class="btn btn-primary">Inschrijving</a>
+                                            <?php }
+                                            ?>
                                 </div>
                                 </td>
                         </tr>              
