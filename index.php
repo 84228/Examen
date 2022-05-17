@@ -34,7 +34,7 @@
 
     }
     $ulvl = $_SESSION['user-lvl'];
-    $reisID   = $_SESSION['reisID'];
+    $reisID   = $_SESSION['userID'];
     
     // verifieer lvl van persoon (admin lvl req)
     if ( $ulvl == "2") {
