@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$reisID   = $_SESSION['reisID'];
+$userID   = $_SESSION['userID'];
 
 require_once 'config.php'; 
 
@@ -14,7 +14,7 @@ if (isset($_POST['save'])) {
     $name = $_POST['name'];
     $location = $_POST['location'];
 
-    $mysqli->query("INSERT INTO data (name, location, reisID) VALUES('$name', '$location', '$reisID')") or 
+    $mysqli->query("INSERT INTO data (name, location, reisID) VALUES('$name', '$location', '$userID')") or 
         die($mysqli->error);
 
     $_SESSION['message'] = "Record has been saved!";
