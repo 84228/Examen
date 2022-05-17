@@ -34,7 +34,7 @@
 
     }
     $ulvl = $_SESSION['user-lvl'];
-    $reisID   = $_SESSION['reisID'];
+    $userID   = $_SESSION['userID'];
     
     // verifieer lvl van persoon (admin lvl req)
     if ( $ulvl == "2") {
@@ -96,6 +96,7 @@
                             <th>Omschrijving</th>
                             <th>Begindatum</th>
                             <th>Einddatum</th>
+                            <th>Max Inschrijvingen</th>
                             <th>Inschrijvingen</th>
                             <th colspan="2">Action</th> 
                         </tr>
@@ -109,6 +110,7 @@
                             <td><?= $row['begindatum']; ?></td> 
                             <td><?= $row['einddatum']; ?></td> 
                             <td><?= $row['inschrijvingen']; ?></td> 
+                            <td><?= $row['counter']; ?></td> 
                                 <td>
                                 <div class="action-buttons">
                                     <?php if( $ulvl == "2" ) { ?>
@@ -128,12 +130,11 @@
                                                 
                                             } 
                                     
-                                            if( $row['inschrijvingen'] == $row['counter'] ) { ?>
+                                            if( $row['inschrijvingen'] !== $row['counter'] || $ulvl == "2" ) { ?>
+                                                <a href="reizen.php?count=<?= $row['reisID']; ?>" class="btn btn-primary">Inschrijving</a>
+                                            <?php } else { }?>
+                                               
 
-                                            <?php } else { ?>
-                                                <a href="reizen.php?<?= $row['reisID']; ?>" class="btn btn-primary">Inschrijving</a>
-                                            <?php }
-                                            ?>
                                 </div>
                                 </td>
                         </tr>              
