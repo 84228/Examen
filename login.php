@@ -3,7 +3,10 @@ naam: admin@glr.nl
 wachtwoord: admin 
 naam: user@glr.nl
 wachtwoord: user
-
+naam: David Sporry
+wachtwoord: wachtwoord1
+naam: test 
+wachtwoord: test
 
 -->
 
@@ -69,7 +72,7 @@ wachtwoord: user
     $user =mysqli_fetch_array($result);
     $_SESSION['username'] = $user['email'];
     $_SESSION['user-lvl'] = $user['level'];
-    $_SESSION['reisID'] = $user['id'];
+    $_SESSION['userID'] = $user['id'];
     header("Location: index.php");
     // echo($_SESSION['username']);
     // echo($_SESSION['user-lvl']);
