@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$reisID   = $_SESSION['reisID'];
+$userID   = $_SESSION['userID'];
 
 require_once 'config.php'; 
 
@@ -22,8 +22,8 @@ if (isset($_POST['save'])) {
     $enddate = $_POST['enddate'];
     $reg = $_POST['reg'];
 
-    $mysqli->query("INSERT INTO reizen (titel, bestemming, omschrijving, begindatum, einddatum, inschrijvingen, reisID) VALUES('$title', '$location', '$input', '$startdate', '$enddate', '$reg', '$id')") or 
-        die($mysqli->error);
+    $mysqli->query("INSERT INTO reizen (titel, bestemming, omschrijving, begindatum, einddatum, inschrijvingen, reisID, id) VALUES('$title', '$location', '$input', '$startdate', '$enddate', '$reg', '$id')") or 
+        die($mysqli->error());
 
     $_SESSION['message'] = "Record has been saved!";
     $_SESSION['msg_type'] = "success";
@@ -33,8 +33,8 @@ if (isset($_POST['save'])) {
 
 //Delete een gebruiker / record
 if (isset($_GET['delete'])) {
-    $reisID = $_GET['delete'];
-    $mysqli->query("DELETE FROM reizen WHERE reisID=$reisID") or die($mysqli->error());
+    $userID = $_GET['delete'];
+    $mysqli->query("DELETE FROM reizen WHERE reisID=$userID") or die($mysqli->error());
 
     $_SESSION['message'] = "Record has been deleted!";
     $_SESSION['msg_type'] = "danger";
@@ -45,9 +45,9 @@ if (isset($_GET['delete'])) {
 //Laat een gebruiker / record zien wanneer je op edit klikt
 //Edit knop
 if (isset($_GET['edit'])) {
-    $reisID = $_GET['edit']; 
+    $userID = $_GET['edit']; 
     $update = true; 
-    $result = $mysqli->query("SELECT * FROM reizen WHERE reisID=$reisID") or die($mysqli->error());
+    $result = $mysqli->query("SELECT * FROM reizen WHERE reisID=$userID") or die($mysqli->error());
     
     if (count($result)==1) {
         $row = $result->fetch_array();
@@ -71,7 +71,7 @@ if (isset($_POST['update'])) {
     $enddate = $_POST['enddate'];
     $reg = $_POST['reg'];
 
-    $mysqli->query("UPDATE reizen SET titel='$title', bestemming='$location', omschrijving='$input', begindatum='$startdate', einddatum='$enddate', inschrijvingen='$reg' WHERE reisID=$reisID") or die($mysqli->error()); 
+    $mysqli->query("UPDATE reizen SET titel='$title', bestemming='$location', omschrijving='$input', begindatum='$startdate', einddatum='$enddate', inschrijvingen='$reg' WHERE reisID=$userID") or die($mysqli->error()); 
 
     $_SESSION['message'] = "Record has been updated!";
     $_SESSION['msg_type'] = "warning";
