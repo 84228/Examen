@@ -35,7 +35,7 @@
     }
     $ulvl = $_SESSION['user-lvl'];
     $reisID   = $_SESSION['reisID'];
-    $id = $_GET['reisID'];
+    $ID = $_GET['reisID'];
 
     // verifieer lvl van persoon (admin lvl req)
     if ( $ulvl == "2") {
@@ -92,7 +92,7 @@
                 unset ($_SESSION['message']);
             ?>
 
-        </div> 
+        </div>
 
     <?php endif ?>
     <h1> Inschrijven voor: </h1>
@@ -101,7 +101,7 @@
             //call naar de config file
             require_once 'config.php';
             //laat alles zien van de databse tafel: "inschrijvingen"
-            $result = $mysqli->query("SELECT * FROM inschrijvingen WHERE reisID is $id") or die($mysqli->error);
+            $result = $mysqli->query("SELECT * FROM inschrijvingen WHERE reisID is $ID") or die($mysqli->error);
             // pre_r($result);
             // pre_r($result->fetch_assoc());
             ?>
@@ -118,37 +118,36 @@
                             <th colspan="2">Action</th> 
                         </tr>
                     </thead>
-                <?php
-                    while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= $row['naam']; ?></td> 
-                            <td><?= $row['studentennummer']; ?></td> 
-                            <td><?= $row['reisID'] ?></td>
-                            <td><?= $row['opmerkingen'] ?></td>  
-                            <td><?= $row['bestemming'] ?></td>  
-                            <td>
-                                <?php if( $reisID == $row['reisID'] || $ulvl == "2" ) { ?>
-                                    <a href="index.php?edit=<?= $row['id']; ?>" class="btn btn-info">Edit</a>
+                    <?php
+                        while ($row = $result->fetch_assoc()): ?>
+                            <tr>
+                                <td><?= $row['naam']; ?></td> 
+                                <td><?= $row['studentennummer']; ?></td> 
+                                <td><?= $row['reisID']; ?></td>
+                                <td><?= $row['opmerkingen']; ?></td>  
+                                <td><?= $row['bestemming']; ?></td>  
+                                <td>
+                                <!-- $reisID == $row['reisID']; ||  -->
+                                    <?php if( $ulvl == "2" ) { ?>
+                                        <a href="reizen.php?edit=<?= $row['id']; ?>" class="btn btn-info">Edit</a>
 
-                                    <?php } else { } ?>
+                                        <?php } else { } ?>
 
-                                <?php 
-                                    // verifieer lvl van persoon (admin lvl req)
-                                    if ( $ulvl == "2") {
-                                        //site here
-                                          ?>
-                                          <a href="process.php?delete=<?= $row['id']; ?>" class="btn btn-danger">Delete</a>
-                                        <?php } 
-                                       //level 1 
-                                        else{
-                                            
-                                        } 
-                                ?>
-                            </td>
-                        </tr>
-
+                                    <?php 
+                                        // verifieer lvl van persoon (admin lvl req)
+                                        if ( $ulvl == "2") {
+                                            //site here
+                                            ?>
+                                            <a href="reizen_process.php?delete=<?= $row['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <?php } 
+                                        //level 1 
+                                            else{
+                                                
+                                            } 
+                                    ?>
+                                </td>
+                            </tr>
                         <?php endwhile; ?>
-
                 </table>
             </div>
 
@@ -165,15 +164,15 @@
         <!-- de form -->
         <div class="row justify-content-center">
             <form action="reizen_process.php" method="POST"> 
-                <?php 
+            <?php 
                  $id   = $_SESSION['id'];
                  $ID   = $_SESSION['reisID'];
                  $naam   = $_SESSION['naam'];
                  $student   = $_SESSION['studentennummer'];
-                 $result2 = $mysqli->query("SELECT `counter` FROM reizen WHERE $row['reisID'];") or die($mysqli->error);
-                 $row2 = $result2->fetch_assoc()
-                 $counter = $row2['counter'] + 1; 
-                 $counter2 = $row2['counter'] - 1; 
+                 $result2 = $mysqli->query("SELECT `counter` FROM reizen WHERE $ID") or die($mysqli->error);
+                 $row2 = $result2->fetch_assoc();
+                 $counter = $row2['counter']; + 1; 
+                 $counter2 = $row2['counter']; - 1; 
                  ?>
 
                 <input type="hidden" name="id" value="<?= $id; ?>">
